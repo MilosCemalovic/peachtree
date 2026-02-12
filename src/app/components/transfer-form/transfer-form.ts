@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common'
 import { Component, input, output } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { TransferTo } from '../../models/transfer'
 import { MatDialog } from '@angular/material/dialog'
+import { TransferTo } from '../../models/transfer'
 import { TransferData, TransferPreview } from '../transfer-preview/transfer-preview'
 
 @Component({
