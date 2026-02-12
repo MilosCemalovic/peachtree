@@ -1,0 +1,208 @@
+.transfer-form {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+
+  &__header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.8rem;
+    background: #0c8397;
+    padding: 1.5rem;
+  }
+
+  &__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__content {
+    padding: 3rem;
+  }
+
+  &__form {
+    display: grid;
+    gap: 2.4rem;
+  }
+
+  &__field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.8rem 0;
+    border: none;
+    border-bottom: 1px solid #d1d5db;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+
+    &:focus {
+      border-bottom-color: #1976d2;
+      border-bottom-width: 2px;
+    }
+
+    &:disabled {
+      color: #6b7280;
+      border-bottom: 1px dashed #d1d5db;
+    }
+  }
+
+  // ----- ERROR -----
+  &__error {
+    color: #dc2626;
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+  }
+
+  // ----- ACTIONS -----
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.8rem;
+  }
+
+  &__button {
+    background: #ee7033;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 1rem 7rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: #fb8c00;
+    }
+
+    &:disabled {
+      background: #d1d5db;
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+  }
+
+  // DESKTOP-FIRST MEDIA QUERIES
+
+  // Tablet
+  @media (max-width: 1024px) {
+    max-width: 440px;
+
+    &__header {
+      padding: 1.25rem;
+    }
+
+    &__icon {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+
+    &__title {
+      font-size: 1.4rem;
+    }
+
+    &__content {
+      padding: 2.5rem;
+    }
+
+    &__button {
+      padding: 1rem 5rem;
+    }
+  }
+
+  // Mobile
+  @media (max-width: 768px) {
+    max-width: 100%; // take full width on small screens
+    margin: 0 auto; // center on smaller screens
+    border-radius: 0.8rem;
+
+    &__header {
+      padding: 1rem;
+      gap: 0.6rem;
+    }
+
+    &__icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__content {
+      padding: 1.8rem;
+    }
+
+    &__form {
+      gap: 1.8rem;
+    }
+
+    &__button {
+      width: 100%; // full width button on mobile
+      padding: 1rem 2rem;
+    }
+  }
+
+  // Small mobile (max-width: 480px)
+  @media (max-width: 480px) {
+    &__header {
+      padding: 0.875rem;
+    }
+
+    &__icon {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    &__title {
+      font-size: 1.1rem;
+    }
+
+    &__content {
+      padding: 1.5rem;
+    }
+
+    &__form {
+      gap: 1.5rem;
+    }
+
+    &__label {
+      font-size: 0.8rem;
+    }
+
+    &__input {
+      padding: 0.6rem 0;
+      font-size: 0.95rem;
+    }
+
+    &__button {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+}
