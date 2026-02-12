@@ -1,32 +1,20 @@
+@use '../../../styles.scss' as *; // import variables and placeholders
+
 .transactions-list {
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 100%;
+  @extend %card;
 
   &__header {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 0.8rem;
-    background: #0c8397;
-    padding: 1.5rem;
+    @extend %card-header;
   }
 
   &__icon {
-    width: 2rem;
-    height: 2rem;
+    @extend %card-icon;
   }
 
   &__title {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0;
-    text-align: center;
+    @extend %card-title;
   }
 
-  // ----- CONTENT -----
   &__content {
     padding: 2rem;
   }
@@ -48,12 +36,12 @@
   &__search-container {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #d1d5db;
+    border-bottom: 1px solid $border-light;
     padding: 0.4rem 0;
     transition: border-color 0.2s;
 
     &:focus-within {
-      border-bottom-color: #0c8397;
+      border-bottom-color: $primary-teal;
       border-bottom-width: 2px;
     }
   }
@@ -68,7 +56,7 @@
     font-family: inherit;
 
     &::placeholder {
-      color: #9ca3af;
+      color: $text-light;
     }
   }
 
@@ -77,7 +65,7 @@
     border: none;
     font-size: 1.5rem;
     line-height: 1;
-    color: #6b7280;
+    color: $text-gray;
     cursor: pointer;
     padding: 0 0.25rem;
     display: flex;
@@ -85,7 +73,7 @@
     justify-content: center;
 
     &:hover {
-      color: #374151;
+      color: $text-dark;
     }
   }
 
@@ -104,14 +92,14 @@
   &__sort-label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #374151;
+    color: $text-dark;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   &__sort-btn {
     background: white;
-    border: 1px solid #d1d5db;
+    border: 1px solid $border-light;
     border-radius: 4px;
     padding: 0.5rem 1.2rem;
     font-size: 0.9rem;
@@ -129,8 +117,8 @@
     }
 
     &.active {
-      border-color: #0c8397;
-      color: #0c8397;
+      border-color: $primary-teal;
+      color: $primary-teal;
     }
   }
 
@@ -172,7 +160,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1.5rem; // spacing between columns
+    margin-right: 1.5rem;
   }
 
   &__logo-img {
@@ -182,11 +170,11 @@
   }
 
   &__info {
-    flex: 1; // takes remaining space
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
-    margin-right: 1.5rem; // spacing before amount
+    margin-right: 1.5rem;
   }
 
   &__merchant {
@@ -198,11 +186,11 @@
 
   &__payment {
     font-size: 0.8rem;
-    color: #6b7280;
+    color: $text-gray;
   }
 
   &__amount {
-    margin-left: auto; // pushes amount to the far right
+    margin-left: auto;
     text-align: right;
   }
 
@@ -220,99 +208,26 @@
     }
   }
 
-  // ----- EMPTY STATE -----
   &__empty {
     text-align: center;
     padding: 3rem 1rem;
-    color: #6b7280;
+    color: $text-gray;
     font-size: 1rem;
   }
 
-  // ========== RESPONSIVE (DESKTOP-FIRST) ==========
+  // ========== RESPONSIVE ==========
   @media (max-width: 1024px) {
-    &__header {
-      padding: 1.25rem;
-    }
-
-    &__icon {
-      width: 1.8rem;
-      height: 1.8rem;
-    }
-
-    &__title {
-      font-size: 1.4rem;
-    }
-
     &__content {
       padding: 1.8rem;
     }
-
     &__date {
       width: 4.5rem;
     }
   }
 
-  @media (max-width: 768px) {
-    &__content {
-      padding: 1.5rem;
-    }
-
+  @media (max-width: 770px) {
     &__toolbar {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1rem;
-    }
-
-    &__search {
-      flex: auto;
-      min-width: auto;
-    }
-
-    &__sort-wrapper {
-      justify-content: space-between;
-    }
-
-    &__row {
       flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      padding: 1rem 0;
-    }
-
-    &__date {
-      width: auto;
-      margin-right: 1rem;
-    }
-
-    &__logo {
-      margin-right: 1rem;
-    }
-
-    &__info {
-      flex: 0 1 100%; // full width on next line
-      margin-right: 0;
-      margin-left: 0; // align with date column
-    }
-
-    &__amount {
-      margin-left: 0;
-      width: 100%;
-      text-align: left;
-      padding-left: 4rem; // align with content
-    }
-  }
-
-  @media (max-width: 480px) {
-    &__header {
-      padding: 0.875rem;
-    }
-
-    &__icon {
-      width: 1.4rem;
-      height: 1.4rem;
-    }
-
-    &__title {
-      font-size: 1.1rem;
     }
 
     &__content {
@@ -322,6 +237,16 @@
     &__sort-btn {
       padding: 0.35rem 0.8rem;
       font-size: 0.75rem;
+    }
+
+    &__row {
+      gap: 0.5rem 0.75rem;
+      border-left-width: 0.35rem;
+    }
+
+    &__logo {
+      width: 2rem;
+      height: 2rem;
     }
 
     &__date {
