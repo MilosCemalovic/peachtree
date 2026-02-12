@@ -1,0 +1,31 @@
+<div class="transfer-preview">
+  <div class="transfer-preview__header">
+    <h2 class="transfer-preview__title">Preview Transfer</h2>
+  </div>
+
+  <div class="transfer-preview__content">
+    <div class="transfer-preview__detail">
+      <span class="transfer-preview__label">From Account:</span>
+      <span class="transfer-preview__value">{{ transferData.fromAccount }}</span>
+    </div>
+    <div class="transfer-preview__detail">
+      <span class="transfer-preview__label">To Account:</span>
+      <span class="transfer-preview__value">{{ transferData.toAccount }}</span>
+    </div>
+    <div class="transfer-preview__detail">
+      <span class="transfer-preview__label">Amount:</span>
+      <span class="transfer-preview__value transfer-preview__value--amount">
+        ${{ transferData.amount.toFixed(2) }}
+      </span>
+    </div>
+  </div>
+
+  <div class="transfer-preview__actions">
+    <button class="transfer-preview__button transfer-preview__button--cancel" (click)="onCancel()">
+      Cancel
+    </button>
+    <button class="transfer-preview__button transfer-preview__button--confirm" (click)="onConfirm()">
+      Transfer
+    </button>
+  </div>
+</div>
