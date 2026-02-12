@@ -79,6 +79,26 @@ No CSS frameworks (Tailwind, Bootstrap) were used – all styles are handcrafted
 - **Why?** The app is simple – balance and transactions are managed in the root `App` component using signals and passed down via `input()`.
 - **Benefit:** Keeps complexity low; follows Angular’s local reasoning principle.
 
+### 7. Features Implemented
+
+**Transfer Money**
+
+- Pre‑filled, disabled FROM ACCOUNT with current balance
+- TO ACCOUNT and AMOUNT fields with reactive validation (required, min $0.01, max $500.00)
+- Submit button opens a preview dialog showing entered data
+- Transfer button inside dialog confirms – emits event, updates balance, resets form
+- Form reset after successful transfer
+- Fully responsive (mobile, tablet, desktop)
+
+**Transactions List (In Progress – planned)**
+
+- Display mock transaction data
+- Real‑time search by beneficiary/merchant
+- Clear search with × button
+- Sort by Date, Beneficiary, Amount (asc/desc persistence)
+- New transfer appears at the top of the list
+- Responsive card layout
+
 ## ⚙️ Setup & Running
 
 ```bash
