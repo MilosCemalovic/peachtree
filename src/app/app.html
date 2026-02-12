@@ -2,17 +2,10 @@
 
 <main class="container">
   <div class="grid">
-    <!-- LEFT COLUMN: Transfer Form -->
-    <div class="col-left">
-      <app-transfer-form [currentBalance]="currentBalance()" (transferComplete)="onTransferComplete($event)" />
-    </div>
+    <!-- Transfer Form -->
+    <app-transfer-form [currentBalance]="currentBalance()" (transferComplete)="onTransferComplete($event)" />
 
-    <!-- RIGHT COLUMN: Placeholder – ready for transactions list -->
-    <div class="col-right">
-      <div class="placeholder-card">
-        <h2>Transactions</h2>
-        <p>Coming soon...</p>
-      </div>
-    </div>
+    <!-- Transactions list -->
+    <app-transactions-list [transactions]="mockTransactions" />
   </div>
 </main>

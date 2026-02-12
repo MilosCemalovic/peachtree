@@ -1,0 +1,74 @@
+<div class="transactions-list">
+  <!-- Header -->
+  <div class="transactions-list__header">
+    <img src="/assets/icons/briefcase.png" alt="" class="transactions-list__icon" />
+    <h2 class="transactions-list__title">Recent Transactions</h2>
+  </div>
+
+  <div class="transactions-list__content">
+    <!-- Toolbar: Search + Sort side by side -->
+    <div class="transactions-list__toolbar">
+      <!-- Search -->
+      <div class="transactions-list__search">
+        <div class="transactions-list__search-container">
+          <input type="text" class="transactions-list__search-input" placeholder="Search by typing..." [value]="searchTerm()"
+            (input)="updateSearch($event)" />
+          @if (searchTerm()) {
+          <button class="transactions-list__search-clear" (click)="clearSearch()">×</button>
+          }
+        </div>
+      </div>
+      <!-- Sort controls -->
+      <div class="transactions-list__sort-wrapper">
+        <div class="transactions-list__sort">
+          <span class="transactions-list__sort-label">Sort by</span>
+          <button class="transactions-list__sort-btn" [class.active]="isActive('date')" (click)="setSort('date')">
+            Date {{ isActive('date') ? getSortIcon('date') : '' }}
+          </button>
+          <button class="transactions-list__sort-btn" [class.active]="isActive('merchant')" (click)="setSort('merchant')">
+            Beneficiary {{ isActive('merchant') ? getSortIcon('merchant') : '' }}
+          </button>
+          <button class="transactions-list__sort-btn" [class.active]="isActive('amount')" (click)="setSort('amount')">
+            Amount {{ isActive('amount') ? getSortIcon('amount') : '' }}
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Transactions list – flexbox layout -->
+    <div class="transactions-list__items">
+      @if (displayedTransactions().length === 0) {
+      <div class="transactions-list__empty">No transactions found.</div>
+      } @else {
+      @for (tx of displayedTransactions(); track tx.transactionDate + tx.merchant) {
+      <div class="transactions-list__row" [style.border-left-color]="tx.categoryCode">
+        <!-- 1. Date – formatted as "MMM d" -->
+        <div class="transactions-list__date">
+          {{ tx.transactionDate | date:'MMM d' }}
+        </div>
+
+        <!-- 3. Merchant logo -->
+        <div class="transactions-list__logo">
+          <img [src]="tx.merchantLogo" alt="" class="transactions-list__logo-img" />
+        </div>
+
+        <!-- 4. Company + payment method -->
+        <div class="transactions-list__info">
+          <div class="transactions-list__merchant">{{ tx.merchant }}</div>
+          <div class="transactions-list__payment">{{ tx.transactionType }}</div>
+        </div>
+
+        <!-- 5. Amount -->
+        <div class="transactions-list__amount">
+          <span class="transactions-list__amount-value" [class.credit]="tx.transactionType === 'credit'"
+            [class.debit]="tx.transactionType === 'debit'">
+            {{ tx.transactionType === 'credit' ? '+' : '-' }}${{ tx.amount.toFixed(2) }}
+          </span>
+        </div>
+      </div>
+      }
+      }
+    </div>
+  </div>
+</div>

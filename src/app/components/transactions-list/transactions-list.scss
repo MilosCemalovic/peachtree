@@ -1,0 +1,343 @@
+.transactions-list {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+
+  &__header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.8rem;
+    background: #0c8397;
+    padding: 1.5rem;
+  }
+
+  &__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+  }
+
+  // ----- CONTENT -----
+  &__content {
+    padding: 2rem;
+  }
+
+  // ----- TOOLBAR (search + sort side by side) -----
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  // ----- SEARCH -----
+  &__search {
+    min-width: 100px;
+  }
+
+  &__search-container {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d1d5db;
+    padding: 0.4rem 0;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+      border-bottom-color: #0c8397;
+      border-bottom-width: 2px;
+    }
+  }
+
+  &__search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    background: transparent;
+    font-family: inherit;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+
+  &__search-clear {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: #374151;
+    }
+  }
+
+  // ----- SORT CONTROLS -----
+  &__sort-wrapper {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__sort-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__sort-btn {
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #111827;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-transform: uppercase;
+
+    &:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    &.active {
+      border-color: #0c8397;
+      color: #0c8397;
+    }
+  }
+
+  // ----- TRANSACTIONS LIST (flexbox layout) -----
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-left: 0.5rem solid transparent;
+    border-bottom: 1px solid #f3f4f6;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  // ----- COLUMNS WITH FIXED WIDTHS AND PADDING -----
+  &__date {
+    width: 5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4b5563;
+    text-align: center;
+    padding: 0 2rem 0 0.5rem;
+  }
+
+  &__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem; // spacing between columns
+  }
+
+  &__logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__info {
+    flex: 1; // takes remaining space
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-right: 1.5rem; // spacing before amount
+  }
+
+  &__merchant {
+    font-weight: 700;
+    color: #111827;
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+
+  &__payment {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+
+  &__amount {
+    margin-left: auto; // pushes amount to the far right
+    text-align: right;
+  }
+
+  &__amount-value {
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+
+    &.credit {
+      color: #10b981;
+    }
+
+    &.debit {
+      color: #ef4444;
+    }
+  }
+
+  // ----- EMPTY STATE -----
+  &__empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  // ========== RESPONSIVE (DESKTOP-FIRST) ==========
+  @media (max-width: 1024px) {
+    &__header {
+      padding: 1.25rem;
+    }
+
+    &__icon {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+
+    &__title {
+      font-size: 1.4rem;
+    }
+
+    &__content {
+      padding: 1.8rem;
+    }
+
+    &__date {
+      width: 4.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__content {
+      padding: 1.5rem;
+    }
+
+    &__toolbar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+
+    &__search {
+      flex: auto;
+      min-width: auto;
+    }
+
+    &__sort-wrapper {
+      justify-content: space-between;
+    }
+
+    &__row {
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      padding: 1rem 0;
+    }
+
+    &__date {
+      width: auto;
+      margin-right: 1rem;
+    }
+
+    &__logo {
+      margin-right: 1rem;
+    }
+
+    &__info {
+      flex: 0 1 100%; // full width on next line
+      margin-right: 0;
+      margin-left: 0; // align with date column
+    }
+
+    &__amount {
+      margin-left: 0;
+      width: 100%;
+      text-align: left;
+      padding-left: 4rem; // align with content
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__header {
+      padding: 0.875rem;
+    }
+
+    &__icon {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    &__title {
+      font-size: 1.1rem;
+    }
+
+    &__content {
+      padding: 1.2rem;
+    }
+
+    &__sort-btn {
+      padding: 0.35rem 0.8rem;
+      font-size: 0.75rem;
+    }
+
+    &__date {
+      font-size: 0.8rem;
+    }
+
+    &__merchant {
+      font-size: 0.9rem;
+    }
+
+    &__payment {
+      font-size: 0.7rem;
+    }
+
+    &__amount-value {
+      font-size: 0.9rem;
+    }
+  }
+}
