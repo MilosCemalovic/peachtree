@@ -1,7 +1,7 @@
 <div class="transactions-list">
   <!-- Header -->
   <div class="transactions-list__header">
-    <img src="/assets/icons/briefcase.png" alt="" class="transactions-list__icon" />
+    <img src="/assets/icons/briefcase.png" alt="Recent Transactions icon" class="transactions-list__icon" />
     <h2 class="transactions-list__title">Recent Transactions</h2>
   </div>
 
@@ -50,7 +50,7 @@
 
         <!-- 3. Merchant logo -->
         <div class="transactions-list__logo">
-          <img [src]="tx.merchantLogo" alt="" class="transactions-list__logo-img" />
+          <img [src]="tx.merchantLogo" alt="{{ tx.merchant }} logo" class="transactions-list__logo-img" />
         </div>
 
         <!-- 4. Company + payment method -->

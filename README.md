@@ -125,6 +125,72 @@ No CSS frameworks (Tailwind, Bootstrap) were used – all styles are handcrafted
   - Bottom row: merchant + payment method (full width)
   - Empty state message when no transactions match the search.
 
+### Production Readiness Assessment
+
+The project is a solid foundation with clean code, modern Angular practices, and full feature implementation.
+However, it is not yet production‑ready. The following areas require attention before deployment to real users.
+
+### What’s Missing for Production Readiness
+
+**Testing** No unit, integration, or E2E tests → regressions may go unnoticed.
+
+- Unit tests (Jasmine/Karma) for components, services, sorting/filtering logic.
+- Integration tests for user flows (transfer → transaction list).
+- E2E tests (Cypress/Playwright) for critical journeys.
+
+**Accessibility**
+
+- Missing ARIA labels, focus management.
+- Some colour contrasts may fail WCAG.
+- Keyboard navigation untested.
+- Add aria-label to icon buttons, aria-live for errors.
+- Trap focus in modal, return focus after dialog close.
+- Audit with axe DevTools; fix contrast ratios.
+
+**Performance**
+
+- No lazy loading – fine now, but doesn’t scale.
+- Default change detection (ChangeDetectionStrategy.Default) causes unnecessary checks.
+- Base64 logos bloat bundle; background image not optimised.
+- Use ChangeDetectionStrategy.OnPush in all components.
+- Optimise images (WebP, srcset).
+- Add service worker (@angular/pwa) for offline capability.
+
+**Error Handling**
+
+- No global error handler → uncaught errors break silently.
+- No loading/feedback states on form submission.
+- No resilience for network failures.
+- Implement ErrorHandler to log errors and show user‑friendly UI.
+- Add loading spinner & disable button during submit.
+- Use toast/snackbar for success/error feedback.
+
+**Code Quality**
+
+- Mock JSON imported as any – no type safety.
+- Hardcoded strings (colours, asset paths) scattered.
+- No enforced linting/formatting.
+- Define TypeScript interface for mock data.
+- Move hardcoded values to constants / environment files.
+- Add ESLint, Prettier, Husky pre‑commit hooks.
+
+**Environment**
+
+- No environment configuration – balance, API endpoints hardcoded.
+- Use Angular environments (environment.ts, environment.prod.ts).
+- Differentiate dev/prod settings.
+
+**Deployment**
+
+- No CI/CD pipeline, no automated build/test/deploy.
+- Set up GitHub Actions / GitLab CI.
+- Deploy to static hosting (Netlify, Vercel).
+
+**Documentation**
+
+- Add JSDoc comments for public methods & computed signals.
+- Create CONTRIBUTING.md.
+
 ## ⚙️ Setup & Running
 
 ```bash
