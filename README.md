@@ -13,8 +13,9 @@ Built with **Angular 20**, **standalone components**, **signals**, **reactive fo
 - [Project Structure](#project-structure)
 - [Setup & Running](#setup--running)
 - [Features Implemented](#features-implemented)
-- [Future Work](#future-work)
-- [Credits](#credits)
+  - [Transfer Money](#transfer-money)
+  - [Transaction History](#transaction-history)
+- [Responsive Design](#responsive-design)
 
 ---
 
@@ -22,8 +23,8 @@ Built with **Angular 20**, **standalone components**, **signals**, **reactive fo
 
 The application consists of two main parts:
 
-1. **Transfer Money Form** – allows users to enter a recipient and amount, preview the transfer, and confirm. The balance updates immediately and a new transaction appears at the top of the list.
-2. **Transactions List** (in progress) – displays recent transactions with live search and sort capabilities.
+1. **Transfer Money Form** – allows users to enter a recipient and amount, preview the transfer in a dialog, and confirm. The balance updates immediately and a new transaction appears at the top of the list.
+2. **Transactions List** – displays recent transactions with **live search** (by merchant/beneficiary) and **sorting** (by date, beneficiary, amount). The sort order persists across all sorting options.
 
 All components are **standalone**, use **signals** for reactive state, and follow a **clean, DRY, BEM‑based SCSS** methodology.
 
@@ -39,6 +40,7 @@ All components are **standalone**, use **signals** for reactive state, and follo
 | Angular Material Dialog | Preview modal (lightweight, accessible)         |
 | SCSS                    | Custom styling with BEM                         |
 | Desktop‑first CSS       | Responsive design via `max-width` media queries |
+| CSS Grid / Flexbox      | Layout control                                  |
 | TypeScript              | Strict typing, interfaces                       |
 | Google Fonts (Kanit)    | Clean, modern typography                        |
 
@@ -55,8 +57,8 @@ No CSS frameworks (Tailwind, Bootstrap) were used – all styles are handcrafted
 
 ### 2. No UI Framework for Form Fields
 
-- **Why?** After initial attempts with Angular Material `mat-form-field`, we found customisation too verbose (`::ng-deep`, appearance limitations).
-- **Decision:** Replaced all Material form fields with plain HTML `<input>` + `<label>` + custom SCSS.
+- **Why?** After initial attempts with Angular Material `mat-form-field`, customisation proved too verbose (`::ng-deep`, appearance limitations).
+- **Decision:** Replaced all Material form fields with **plain HTML `<input>` + `<label>` + custom SCSS**.
 - **Result:** 100% control over every pixel, no style encapsulation fights, smaller bundle.
 
 ### 3. BEM + Desktop‑first SCSS
@@ -64,40 +66,64 @@ No CSS frameworks (Tailwind, Bootstrap) were used – all styles are handcrafted
 - **Why?** BEM provides a predictable, maintainable naming system. Desktop‑first (`max-width`) reduces code complexity – we start from the largest screen and scale down.
 - **Benefit:** Readable stylesheets, easy to extend, no CSS leaks.
 
-### 4. Angular Material Dialog (only for preview)
+### 4. DRY with Shared Styles
+
+- **Why?** Both cards (Transfer Form and Transactions List) share identical header styles (teal background, icon, centered title).
+- **Implementation:** Used **Sass placeholders** (`%card`, `%card-header`, `%card-icon`, `%card-title`) and **variables** defined in `src/styles.scss`, then `@extend`ed in each component.
+- **Benefit:** Single source of truth – change one file, update both components.
+
+### 5. Angular Material Dialog (only for Transaction preview)
 
 - **Why?** Building a fully accessible modal from scratch is time‑consuming and error‑prone. `MatDialog` is already in the project (via `ng add @angular/material`) and works perfectly.
 - **Trade‑off:** Adds a small dependency, but the component is only used for this one feature.
 
-### 5. Transfer Data Model (DRY)
+### 6. Persistent Sort Order
 
-- **Why?** `TransferTo` and `TransferData` interfaces are defined once in `models/transfer.ts` and imported wherever needed.
-- **Benefit:** Single source of truth, easy to update, strong type safety.
+- **Why?** Requirement: _“The Sorting order (ascending/descending) should be persistent across all sorting options.”_
+- **Implementation:** The current `sortOrder` signal is **not reset** when changing `sortBy` – only toggled when clicking the same field.
+- **Benefit:** Consistent UX – users don’t lose their preferred direction when switching sort criteria.
 
-### 6. No Global State Management
+### 7. No Global State Management
 
 - **Why?** The app is simple – balance and transactions are managed in the root `App` component using signals and passed down via `input()`.
 - **Benefit:** Keeps complexity low; follows Angular’s local reasoning principle.
 
-### 7. Features Implemented
+---
+
+## 8. Features Implemented
 
 **Transfer Money**
 
-- Pre‑filled, disabled FROM ACCOUNT with current balance
-- TO ACCOUNT and AMOUNT fields with reactive validation (required, min $0.01, max $500.00)
-- Submit button opens a preview dialog showing entered data
-- Transfer button inside dialog confirms – emits event, updates balance, resets form
-- Form reset after successful transfer
-- Fully responsive (mobile, tablet, desktop)
+- Pre‑filled, disabled **FROM ACCOUNT** with current balance.
+- **TO ACCOUNT** and **AMOUNT** fields with reactive validation:
+  - Required
+  - Minimum: $0.01
+  - Maximum: $500.00
+- **Submit** button opens a **preview dialog** showing entered data.
+- **Transfer** button inside dialog confirms – emits event, updates balance, resets form.
+- Form reset after successful transfer.
+- Fully responsive (mobile, tablet, desktop).
 
-**Transactions List (In Progress – planned)**
+### Transaction History
 
-- Display mock transaction data
-- Real‑time search by beneficiary/merchant
-- Clear search with × button
-- Sort by Date, Beneficiary, Amount (asc/desc persistence)
-- New transfer appears at the top of the list
-- Responsive card layout
+- Displays mock transactions loaded from `src/app/mock/transactions.json`.
+- **Live search** – filters by `merchant` or `beneficiary` on every keystroke.
+- **Clear search** – × button appears when search term is non‑empty.
+- **Sorting** by:
+  - Date (newest/oldest)
+  - Beneficiary (A–Z / Z–A)
+  - Amount (ascending/descending)
+- **Persistent sort order** – when switching between sort fields, the current direction (asc/desc) is preserved.
+- **Table‑like layout** on desktop:
+  - Colored left border (via `categoryCode`)
+  - Short date (e.g., `Oct 19`)
+  - Merchant logo (Base64)
+  - Company name (bold) + payment method (gray) below
+  - Amount signed (+/–) and colored (credit/debit), right‑aligned
+- **Mobile‑optimised** – below 770px, layout switches to a clean stacked grid:
+  - Top row: logo, date, amount (right‑aligned)
+  - Bottom row: merchant + payment method (full width)
+  - Empty state message when no transactions match the search.
 
 ## ⚙️ Setup & Running
 
