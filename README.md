@@ -196,7 +196,7 @@ However, it is not yet production‑ready. The following areas require attention
 ```bash
 # 1. Clone the repository
 git clone <repo-url>
-cd money-transfer-app
+cd peachtree
 
 # 2. Install dependencies
 npm install
